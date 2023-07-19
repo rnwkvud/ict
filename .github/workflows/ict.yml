@@ -41,5 +41,5 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         script: |
           sudo -s
-          docker pull wkvud/ict:lastest
-          docker service update --image wkvud/ict:lastest ict
+          docker pull wkvud/ict:latest
+          docker service update --image wkvud/ict:latest ict
