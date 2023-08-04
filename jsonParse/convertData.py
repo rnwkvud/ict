@@ -7,7 +7,7 @@ def excel_to_json(file_path):
     workbook = xlrd.open_workbook(file_path, encoding_override='utf-8')
     # 첫 번째 시트 선택
     sheet = workbook.sheet_by_index(0)
-
+##
     data = []
     # 각 행을 순회하면서 데이터 추출
     for row in range(1, sheet.nrows):  # 첫 번째 행은 헤더이므로 제외하고 시작
