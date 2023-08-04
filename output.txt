@@ -2182,4 +2182,3 @@
 {"value": "희생양극방식", "synonyms": ["희생양극방식", "sacrificial anode", "SACRIFICIAL ANODE"]},
 {"value": "히빙", "synonyms": ["히빙", "heaving", "HEAVING"]}
 ]
-{}

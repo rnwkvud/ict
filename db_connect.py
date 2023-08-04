@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 cnx = None  # Here we initialize the cnx variable
-# 
+
 try:
     cnx = mysql.connector.connect(user=os.environ.get('MYSQL_USER'), password=os.environ.get('MYSQL_PASSWORD'),
                                   host=os.environ.get('MYSQL_HOST'),
