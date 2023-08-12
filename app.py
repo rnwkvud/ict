@@ -22,7 +22,7 @@ def webhook():
 
     if intent_name == 'shipterm':
         term_name = req.get('queryResult').get('parameters').get('term')
-        term_name = str(term_name).strip('[]')
+        term_name = str(term_name[0].strip('[]'))
         print(term_name)
         search_query = f"""SELECT term_definition FROM shipping_terms WHERE term_name = '{term_name}'"""
         print(search_query)
