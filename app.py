@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_mysqldb import MySQL
+from flask import Response
+import json
 import os
 
 app = Flask(__name__)
@@ -29,9 +31,12 @@ def webhook():
         cursor.execute(search_query)
         result = cursor.fetchone()
         if result:
-            return jsonify({'fulfillmentText': result[0]})
+            response_data = {"fulfillmentText": result[0]}
+            response_json = json.dumps(response_data, ensure_ascii=False)
+            return Response(response_json, content_type="application/json; charset=utf-8")
         else:
             return jsonify({'fulfillmentText': '해당 용어를 찾을 수 없습니다.'})
+
 
     elif intent_name == 'Certification':
         certificate_name = req.get('queryResult').get('parameters').get('Certification_Term')
@@ -42,9 +47,11 @@ def webhook():
         cursor.execute(search_query)
         result = cursor.fetchone()
         if result:
-            return jsonify({'fulfillmentText': result[0]})
+            response_data = {"fulfillmentText": result[0]}
+            response_json = json.dumps(response_data, ensure_ascii=False)
+            return Response(response_json, content_type="application/json; charset=utf-8")
         else:
-            return jsonify({'fulfillmentText': '해당 자격증을 찾을 수 없습니다.'})
+            return jsonify({'fulfillmentText': '해당 용어를 찾을 수 없습니다.'})
 
     cursor.close()
 
