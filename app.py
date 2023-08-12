@@ -18,10 +18,11 @@ def webhook():
     print(req.get('queryResult').get('intent'), '0번') 
     print(intent_name, '1번-------')
     cursor = mysql.connection.cursor()
+#         term_name = str(term_name[0].strip('[]'))
 
     if intent_name == 'shipterm':
         term_name = req.get('queryResult').get('parameters').get('term')
-        term_name = str(term_name[0].strip('[]'))
+        term_name = str(term_name).strip('[]')
         print(term_name)
         search_query = f"""SELECT term_definition FROM shipping_terms WHERE term_name = '{term_name}'"""
         print(search_query)
