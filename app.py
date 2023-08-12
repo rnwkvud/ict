@@ -19,10 +19,10 @@ def shipterm(term_name):
     cursor.close()
     if result:
         response_data = {"fulfillmentText": result[0]}
-        response_json = json.dumps(response_data, ensure_ascii=False)
-        return Response(response_json, content_type="application/json; charset=utf-8")
     else:
-        return jsonify({'fulfillmentText': '해당 용어를 찾을 수 없습니다.'})
+        response_data = {'fulfillmentText': '해당 용어를 찾을 수 없습니다.'}
+    response_json = json.dumps(response_data, ensure_ascii=False)
+    return Response(response_json, content_type="application/json; charset=utf-8")
 
 @app.route('/webhook/certification/<string:certificate_name>', methods=['POST'])
 def certification(certificate_name):
@@ -33,10 +33,10 @@ def certification(certificate_name):
     cursor.close()
     if result:
         response_data = {"fulfillmentText": result[0]}
-        response_json = json.dumps(response_data, ensure_ascii=False)
-        return Response(response_json, content_type="application/json; charset=utf-8")
     else:
-        return jsonify({'fulfillmentText': '해당 자격증을 찾을 수 없습니다.'})
+        response_data = {'fulfillmentText': '해당 자격증을 찾을 수 없습니다.'}
+    response_json = json.dumps(response_data, ensure_ascii=False)
+    return Response(response_json, content_type="application/json; charset=utf-8")
 
 @app.route('/', methods=['GET'])
 def test():
