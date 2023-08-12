@@ -17,13 +17,13 @@ class CreateCertificate(Resource):
     def post(self):
         json_data = request.get_json(force=True)
         for item in json_data:
-            certificate_name = item['자격증']
-            certificate_details = item['자격증 내용']
+            term_name = item['용어 명']
+            term_definition = item['용어 정의']
 
             cursor = mysql.connection.cursor()
-            insert_query = """INSERT INTO certificates (certificate_name, certificate_details)
+            insert_query = """INSERT INTO shipping_terms (term_name, term_definition)
                               VALUES (%s, %s)"""
-            cursor.execute(insert_query, (certificate_name, certificate_details))
+            cursor.execute(insert_query, (term_name, term_definition))
         mysql.connection.commit()
         cursor.close()
 
