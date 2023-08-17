@@ -10,8 +10,9 @@ app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
 app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST')
 mysql = MySQL(app)
 
-@app.route('/webhook/shipterm/<string:term_name>', methods=['POST'])
-def shipterm(term_name):
+@app.route('/webhook/shipterm', methods=['POST'])
+def shipterm():
+    term_name = request.json.get("queryResult", {}).get("parameters", {}).get("term", [])[0]
     cursor = mysql.connection.cursor()
     search_query = f"""SELECT term_definition FROM shipping_terms WHERE term_name = '{term_name}'"""
     cursor.execute(search_query)
@@ -24,8 +25,9 @@ def shipterm(term_name):
     response_json = json.dumps(response_data, ensure_ascii=False)
     return Response(response_json, content_type="application/json; charset=utf-8")
 
-@app.route('/webhook/certification/<string:certificate_name>', methods=['POST'])
-def certification(certificate_name):
+@app.route('/webhook/certification', methods=['POST'])
+def certification():
+    certificate_name = request.json.get("queryResult", {}).get("parameters", {}).get("certificate", "")
     cursor = mysql.connection.cursor()
     search_query = f"""SELECT certificate_details FROM certificates WHERE certificate_name = '{certificate_name}'"""
     cursor.execute(search_query)
