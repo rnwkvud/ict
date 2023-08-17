@@ -14,8 +14,8 @@ mysql = MySQL(app)
 def shipterm():
     term_name = request.json.get("queryResult", {}).get("parameters", {}).get("term", [])[0]
     cursor = mysql.connection.cursor()
-    search_query = f"""SELECT term_definition FROM shipping_terms WHERE term_name = '{term_name}'"""
-    cursor.execute(search_query)
+    search_query = "SELECT term_definition FROM shipping_terms WHERE term_name = %s"
+    cursor.execute(search_query, (term_name,))
     result = cursor.fetchone()
     cursor.close()
     if result:
@@ -29,8 +29,8 @@ def shipterm():
 def certification():
     certificate_name = request.json.get("queryResult", {}).get("parameters", {}).get("certificate", "")
     cursor = mysql.connection.cursor()
-    search_query = f"""SELECT certificate_details FROM certificates WHERE certificate_name = '{certificate_name}'"""
-    cursor.execute(search_query)
+    search_query = "SELECT certificate_details FROM certificates WHERE certificate_name = %s"
+    cursor.execute(search_query, (certificate_name,))
     result = cursor.fetchone()
     cursor.close()
     if result:
