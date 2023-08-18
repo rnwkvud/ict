@@ -3,7 +3,7 @@ from flask_mysqldb import MySQL
 import json
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
 app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
@@ -39,6 +39,10 @@ def certification():
         response_data = {'fulfillmentText': '해당 자격증을 찾을 수 없습니다.'}
     response_json = json.dumps(response_data, ensure_ascii=False)
     return Response(response_json, content_type="application/json; charset=utf-8")
+
+@app.route('/index')
+def index():
+    return app.send_static_file('index.html')
 
 @app.route('/', methods=['GET'])
 def test():

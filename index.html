@@ -1,0 +1,25 @@
+<script>
+    async function getTerm() {
+        const term = document.getElementById('term').value;
+        const response = await axios.post('http://13.125.127.220/webhook/shipterm', {
+            queryResult: {
+                parameters: {
+                    term: [term]
+                }
+            }
+        });
+        document.getElementById('result').textContent = response.data.fulfillmentText;
+    }
+
+    async function getCertificate() {
+        const certificate = document.getElementById('certificate').value;
+        const response = await axios.post('http://13.125.127.220/webhook/certification', {
+            queryResult: {
+                parameters: {
+                    certificate: certificate
+                }
+            }
+        });
+        document.getElementById('result').textContent = response.data.fulfillmentText;
+    }
+</script>
