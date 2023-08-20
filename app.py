@@ -3,7 +3,7 @@ from flask_mysqldb import MySQL
 import json
 import os
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__)
 app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER')
 app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
 app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
@@ -27,7 +27,7 @@ def shipterm():
 
 @app.route('/webhook/certification', methods=['POST'])
 def certification():
-    certificate_name = request.json.get("queryResult", {}).get("parameters", {}).get("certificate", "")
+    certificate_name = request.json.get("queryResult", {}).get("parameters", {}).get("Certification_Term", "")
     cursor = mysql.connection.cursor()
     search_query = "SELECT certificate_details FROM certificates WHERE certificate_name = %s"
     cursor.execute(search_query, (certificate_name,))
@@ -40,9 +40,7 @@ def certification():
     response_json = json.dumps(response_data, ensure_ascii=False)
     return Response(response_json, content_type="application/json; charset=utf-8")
 
-@app.route('/index')
-def index():
-    return app.send_static_file('index.html')
+
 
 @app.route('/', methods=['GET'])
 def test():
